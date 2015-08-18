@@ -15,7 +15,6 @@ env:
     - libev
   CYTHON:
     - CYTHON
-    - NO_CYTHON
 build:
   - script: |
       export JAVA_HOME=/usr/lib/jvm/$JDK
