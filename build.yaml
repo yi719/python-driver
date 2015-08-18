@@ -15,6 +15,7 @@ env:
     - libev
   CYTHON:
     - CYTHON
+    - NO_CYTHON
 build:
   - script: |
       export JAVA_HOME=/usr/lib/jvm/$JDK
@@ -24,16 +25,18 @@ build:
       if [[ $EVENT_LOOP_MANAGER == 'libev' ]]; then
         sudo apt-get install -y libev4 libev-dev
       fi
+      pip install -r test-requirements.txt
+
 
       if [[ $CYTHON == 'CYTHON' ]]; then
         pip install cython
         pip install numpy
+        # Install the driver & compile C extensions
+        python setup.py build_ext --inplace
+      else
+        # Install the driver & compile C extensions with no cython
+        python setup.py build_ext --inplace --no-cython
       fi
-
-      pip install -r test-requirements.txt
-
-      # Install the driver & compile C extensions
-      python setup.py build_ext --inplace
 
       echo "==========RUNNING CQLENGINE TESTS=========="
       CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=cqle_results.xml tests/integration/cqlengine/
