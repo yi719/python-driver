@@ -39,10 +39,10 @@ build:
       fi
 
       echo "==========RUNNING CQLENGINE TESTS=========="
-      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=cqle_results.xml tests/integration/cqlengine/
+      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=cqle_results.xml tests/integration/cqlengine/ || true
 
       echo "==========RUNNING INTEGRATION TESTS=========="
-      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=standard_results.xml tests/integration/standard/
+      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=standard_results.xml tests/integration/standard/ || true
 
       echo "==========RUNNING LONG INTEGRATION TESTS=========="
-      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=long_results.xml tests/integration/long/
+      CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=long_results.xml tests/integration/long/ || true
