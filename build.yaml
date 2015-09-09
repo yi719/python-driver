@@ -46,3 +46,5 @@ build:
 
       echo "==========RUNNING LONG INTEGRATION TESTS=========="
       CASSANDRA_VERSION=$CASSANDRA_VERSION nosetests -s -v --with-xunit --xunit-file=long_results.xml tests/integration/long/ || true
+  - xunit:
+    - "*_results.xml"
