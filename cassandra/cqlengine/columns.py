@@ -939,8 +939,9 @@ class Json(Blob):
 
 def to_python(self, value):
     ret = {}
-    for k, v in value.items():
-        ret[k] = self.user_type._fields[k].to_python(v)
+    for col_name, col in self.user_type._fields.items():
+        val = value.get(col_name) if value is not None else None
+        ret[col_name] = col.to_python(val)
     return self.user_type(**ret)
 
 
