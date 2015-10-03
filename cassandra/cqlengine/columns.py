@@ -932,8 +932,9 @@ class Json(Blob):
         return bytearray(ret)
 
     def to_python(self, value):
-        if not value:
-            return {}
+        if value is None and self.has_default:
+            return self.get_default()
+
         return msgpack.unpackb(value, object_hook=decode_datetime, encoding='utf-8')
 
 
