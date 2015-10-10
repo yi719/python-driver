@@ -880,6 +880,9 @@ class UserDefinedType(Column):
     def sub_columns(self):
         return list(self.user_type._fields.values())
 
+    def to_database(self, value):
+        return value
+
 
 def resolve_udts(col_def, out_list):
     for col in col_def.sub_columns:
