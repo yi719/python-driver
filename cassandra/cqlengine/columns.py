@@ -882,7 +882,7 @@ class UserDefinedType(Column):
 
     def to_database(self, value):
         for col_name, col in self.user_type._fields.items():
-            value[col_name] = col.to_database(value[col_name])
+            value[col_name] = col.to_database(getattr(value, col_name, None))
         return value
 
 
