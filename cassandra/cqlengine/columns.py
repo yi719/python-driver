@@ -881,10 +881,11 @@ class UserDefinedType(Column):
         return list(self.user_type._fields.values())
 
     def to_database(self, value):
-        for k, v in value.items():
+        ret = deepcopy(value)
+        for k, v in ret.items():
             col = self.user_type._fields[k]
-            value[k] = col.to_database(v)
-        return value
+            ret[k] = col.to_database(v)
+        return ret
 
 
 def resolve_udts(col_def, out_list):
