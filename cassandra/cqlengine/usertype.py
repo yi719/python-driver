@@ -29,8 +29,7 @@ class BaseUserType(object):
         self._values = {}
         for name, field in self._fields.items():
             value = values.get(name, None)
-            if value is not None or isinstance(field, columns.BaseContainerColumn):
-                value = field.to_python(value)
+            value = field.to_python(value)
             value_mngr = field.value_manager(self, field, value)
             if name in values:
                 value_mngr.explicit = True

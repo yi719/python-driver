@@ -361,11 +361,9 @@ class BaseModel(object):
         self._ttl = self.__default_ttl__
         self._timestamp = None
         self._transaction = None
-
         for name, column in self._columns.items():
             value = values.get(name, None)
-            if value is not None or isinstance(column, columns.BaseContainerColumn):
-                value = column.to_python(value)
+            value = column.to_python(value)
             value_mngr = column.value_manager(self, column, value)
             if name in values:
                 value_mngr.explicit = True
