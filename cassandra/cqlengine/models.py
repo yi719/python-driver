@@ -388,6 +388,12 @@ class BaseModel(object):
         return '{0} <{1}>'.format(self.__class__.__name__,
                                 ', '.join('{0}={1}'.format(k, getattr(self, k)) for k in self._primary_keys.keys()))
 
+    def __setstate__(self, state):
+        # register when unpickle from cache, avoid property missing
+        state._timeout = connection.NOT_SET
+        state.update(self.__dict__)  # pylint: disable=E0203
+        self.__dict__ = state
+
     @classmethod
     def _discover_polymorphic_submodels(cls):
         if not cls._is_polymorphic_base:
