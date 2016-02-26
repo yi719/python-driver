@@ -373,7 +373,7 @@ class BaseModel(object):
         # that update should be used when persisting changes
         self._is_persisted = False
         self._batch = None
-        self._timeout = connection.NOT_SET
+        self._timeout = 2
 
     def __repr__(self):
         return '{0}({1})'.format(self.__class__.__name__,
