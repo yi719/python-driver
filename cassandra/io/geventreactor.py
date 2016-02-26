@@ -153,7 +153,7 @@ class GeventConnection(Connection):
                     if len(buf) < self.in_buffer_size:
                         break
             except socket.error as err:
-                if not is_timeout(err):
+                if not is_timeout(err) and len(buf) != self.in_buffer_size:
                     log.debug("Exception during socket recv for %s: %s", self, err)
                     self.defunct(err)
                     return  # leave the read loop
