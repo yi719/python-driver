@@ -390,9 +390,9 @@ class BaseModel(object):
 
     def __setstate__(self, state):
         # register when unpickle from cache, avoid property missing
-        state._timeout = connection.NOT_SET
         state.update(self.__dict__)  # pylint: disable=E0203
         self.__dict__ = state
+        self._timeout = connection.NOT_SET
 
     @classmethod
     def _discover_polymorphic_submodels(cls):
