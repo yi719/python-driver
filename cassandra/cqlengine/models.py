@@ -270,6 +270,8 @@ class ColumnDescriptor(object):
         TODO: use None instance to create update statements
         """
         if instance:
+            if instance._values.get(self.column.column_name, None) is None:
+                instance._values[self.column.column_name] = self.column.value_manager(instance, self.column, value)
             return instance._values[self.column.column_name].setval(value)
         else:
             raise AttributeError('cannot reassign column values')
