@@ -259,6 +259,8 @@ class ColumnDescriptor(object):
         """
         try:
             return instance._values[self.column.column_name].getval()
+        except KeyError:
+            return self.column.get_default()
         except AttributeError:
             return self.query_evaluator
 
